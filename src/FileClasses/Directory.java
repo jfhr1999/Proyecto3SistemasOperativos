@@ -7,14 +7,18 @@ public class Directory {
     
     private String Name;
     private ArrayList<File> Files;
+    private ArrayList<Directory> Directories;
+    private String location;
     
     public Directory(){
         Files = new ArrayList();
     }
     
-    public Directory(String pName){
+    public Directory(String pName, String location){
        this.Name = pName;
        Files = new ArrayList();
+       Directories = new ArrayList();
+       this.location = location;
     }
 
     public String getName() {
@@ -25,10 +29,12 @@ public class Directory {
         this.Name = Name;
     }
     
-    public void insertFile(String FileName, String FileExtention){
-        File nFile = new File(FileName, FileExtention);
-        Files.add(nFile);
-           
+    public void insertFile(File file){
+        Files.add(file); 
+    }
+    
+    public void insertDirectory(Directory dir){
+        Directories.add(dir); 
     }
     
     public void printFiles(){
@@ -37,7 +43,24 @@ public class Directory {
             System.out.print("\n");
         }
     }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
     
-    
+    public String toString(){
+        String str = "";
+        for(Directory d : Directories){
+            str += d.getName() + "\n";
+        }
+        for(File f : Files){
+            str += f.getName() + "." + f.getExtention() + "\n";
+        }
+        return str;
+    }
     
 }

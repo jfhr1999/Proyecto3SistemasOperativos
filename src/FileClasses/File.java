@@ -6,14 +6,16 @@ public class File {
     private String Name;
     private String Extention;
     private String Content;
+    private String location;
     
     public File(){
     
     }
-    public File( String pName, String pExtention, String pContent){
+    public File( String pName, String pExtention, String pContent, String location){
         this.Name = pName;
         this.Extention = pExtention;
         this.Content = pContent;
+        this.location = location;
     }
     
     public File (String pName, String pExtention){
@@ -43,6 +45,14 @@ public class File {
 
     public void setContent(String Content) {
         this.Content = Content;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
     }
     
     

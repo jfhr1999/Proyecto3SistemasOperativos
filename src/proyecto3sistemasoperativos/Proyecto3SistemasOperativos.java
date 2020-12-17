@@ -2,11 +2,12 @@ package proyecto3sistemasoperativos;
 
 import FileClasses.Directory;
 import FileClasses.File;
+import FileClasses.Shell;
 
 public class Proyecto3SistemasOperativos {
 
     public static void main(String[] args) {
-        Directory dir = new Directory("Root");
+        Shell shell = new Shell();
         
         System.out.print(dir.getName());
         System.out.print("\n");
