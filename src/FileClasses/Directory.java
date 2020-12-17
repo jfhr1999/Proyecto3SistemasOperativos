@@ -52,13 +52,14 @@ public class Directory {
         this.location = location;
     }
     
+    @Override
     public String toString(){
         String str = "";
         for(Directory d : Directories){
             str += d.getName() + "\n";
         }
         for(File f : Files){
-            str += f.getName() + "." + f.getExtention() + "\n";
+            str += f.getName() + f.getExtention() + "\n";
         }
         return str;
     }

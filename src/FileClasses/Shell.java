@@ -36,35 +36,48 @@ public class Shell {
             else if (str.equals("FILE")){
                 System.out.println("Digite el nombre del archivo: ");
                 str = sc.nextLine();
-                String[] data = str.split(".", 2);
+                System.out.println("STR: " + str);
+                String[] data = str.split("\\.");
                 String nombre = data[0];
-                String extension = data[1];
-                if(checkExist(nombre, extension)){
+                String extension = "." + data[1];
+                
+                //Crea el archivo
+                System.out.println("Digite el contenido del archivo: ");
+                String contenido = sc.nextLine();
+                File file = new File(nombre, extension, contenido, currentDir);
+                System.out.println(file.toString());
+                
+                if(checkExist(nombre, extension)){ //Si ya existe
                     System.out.println("Ya existe un archivo con este nombre, ¿desea reemplazarlo con este? ");
                     str = sc.nextLine();
                     if(str.equals("si") || str.equals("Si")){
                         //borrar el archivo viejo
-                        System.out.println("Digite el contenido del archivo: ");
-                        String contenido = sc.nextLine();
-                        File file = new File(nombre, extension, contenido, currentDir);
+                        
                         Files.add(file);
+                        
                         insertFile(file);
                     }
+                } else {
+                    Files.add(file);    
+                    insertFile(file);
                 }
             }
             
             else if (str.equals("MKDIR")){
                 System.out.println("Digite el nombre del directorio: ");
                 String nombre = sc.nextLine();
+                Directory dir = new Directory(nombre, currentDir + "\\" + nombre);
                 if(checkDir(nombre)){
                     System.out.println("Ya existe un archivo con este nombre, ¿desea reemplazarlo con este? ");
                     str = sc.nextLine();
                     if(str.equals("si") || str.equals("Si")){
                         //borrar el directorio viejo
-                        Directory dir = new Directory(nombre, currentDir + "\\" + nombre);
                         Directories.add(dir);
                         insertDir(dir);
                     }
+                } else {
+                    Directories.add(dir);
+                    insertDir(dir);
                 }
             }
             

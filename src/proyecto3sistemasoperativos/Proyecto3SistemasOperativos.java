@@ -9,19 +9,9 @@ public class Proyecto3SistemasOperativos {
     public static void main(String[] args) {
         Shell shell = new Shell();
         
-        System.out.print(dir.getName());
-        System.out.print("\n");
-        
-        dir.insertFile("Pelos", ".txt");
-        dir.insertFile("Presentacion", ".pdf");
-        dir.insertFile("proyecto", ".py");
+        shell.readCmd();
         
         
-        
-        System.out.print("Archivos");
-        System.out.print("\n");
-        dir.printFiles();
-        System.out.print("\n");
     }
     
 }

@@ -55,6 +55,11 @@ public class File {
         this.location = location;
     }
     
-    
+    @Override
+    public String toString(){
+        String str = "";
+        str += Name + Extention + "\n";
+        return str;
+    }
     
 }
