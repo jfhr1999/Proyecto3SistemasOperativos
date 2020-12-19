@@ -26,7 +26,7 @@ public class Shell {
     public void readCmd(){
         Scanner sc = new Scanner(System.in);
         while(true){
-            System.out.println("> ");
+            System.out.print("> ");
             String str = sc.nextLine();
             
             if(str.equals("CREATE")){
@@ -34,21 +34,21 @@ public class Shell {
             }
             
             else if (str.equals("FILE")){
-                System.out.println("Digite el nombre del archivo: ");
+                System.out.print("\nDigite el nombre del archivo: ");
                 str = sc.nextLine();
-                System.out.println("STR: " + str);
+                //System.out.println("STR: " + str);
                 String[] data = str.split("\\.");
                 String nombre = data[0];
                 String extension = "." + data[1];
                 
                 //Crea el archivo
-                System.out.println("Digite el contenido del archivo: ");
+                System.out.print("\nDigite el contenido del archivo: ");
                 String contenido = sc.nextLine();
                 File file = new File(nombre, extension, contenido, currentDir);
                 System.out.println(file.toString());
                 
                 if(checkExist(nombre, extension)){ //Si ya existe
-                    System.out.println("Ya existe un archivo con este nombre, ¿desea reemplazarlo con este? ");
+                    System.out.print("\nYa existe un archivo con este nombre, ¿desea reemplazarlo con este? ");
                     str = sc.nextLine();
                     if(str.equals("si") || str.equals("Si")){
                         //borrar el archivo viejo
@@ -64,11 +64,11 @@ public class Shell {
             }
             
             else if (str.equals("MKDIR")){
-                System.out.println("Digite el nombre del directorio: ");
+                System.out.print("\nDigite el nombre del directorio: ");
                 String nombre = sc.nextLine();
                 Directory dir = new Directory(nombre, currentDir + "\\" + nombre);
                 if(checkDir(nombre)){
-                    System.out.println("Ya existe un archivo con este nombre, ¿desea reemplazarlo con este? ");
+                    System.out.println("\nYa existe un archivo con este nombre, ¿desea reemplazarlo con este? ");
                     str = sc.nextLine();
                     if(str.equals("si") || str.equals("Si")){
                         //borrar el directorio viejo
@@ -82,7 +82,7 @@ public class Shell {
             }
             
             else if (str.equals("CambiarDIR")){
-                System.out.println("Digite la dirección a la que desea ir: ");
+                System.out.print("\nDigite la dirección a la que desea ir: ");
                 String dir = sc.nextLine();
                 if(checkLocation(dir)){
                     currentDir = dir;
@@ -97,13 +97,103 @@ public class Shell {
                 }
             }
             
-            else if (str.equals("ModFile")){}
-            else if (str.equals("VerFile")){}
-            else if (str.equals("CoPY")){}
-            else if (str.equals("MoVer")){}
-            else if (str.equals("ReMove")){}
-            else if (str.equals("FIND")){}
-            else if (str.equals("TREE")){}
+            else if (str.equals("ModFile")){
+                System.out.print("\nDigite el nombre del archivo que desea modificar: ");
+                String name = sc.nextLine();
+                for(File f : Files){
+                    if(f.getLocation().equals(currentDir) && f.getName().equals(name)){
+                        //Desplegar textfield para que modifique el archivo
+                    }
+                }
+            }
+            
+            else if (str.equals("VerPropiedades")){
+                System.out.print("\nDigite el nombre del archivo que desea ver las propiedades: ");
+                String name = sc.nextLine();
+                for(File f : Files){
+                    if(f.getLocation().equals(currentDir) && f.getName().equals(name)){
+                        f.viewProperties();
+                    }
+                }
+            }
+            
+            else if (str.equals("VerFile")){
+                System.out.print("\nDigite el nombre del archivo que desea ver: ");
+                String name = sc.nextLine();
+                for(File f : Files){
+                    if(f.getLocation().equals(currentDir) && f.getName().equals(name)){
+                        f.getContent();
+                    }
+                }
+            }
+            
+            else if (str.equals("CoPY")){
+                System.out.print("\n¿Qué tipo de copy desea?\nr-v\nv-r\nv-v\n> ");
+                String answer = sc.nextLine();
+                if(answer.equals("r-v")){
+                    
+                }else if(answer.equals("v-r")){
+                    
+                }else{
+                    
+                }
+            }
+            
+            else if (str.equals("MoVer")){
+                System.out.print("\nDigite el nombre del archivo que desea mover: ");
+                String name = sc.nextLine();
+                System.out.print("\nDigite la nueva dirección del archivo: ");
+                String newDirection = sc.nextLine();
+                for(File f : Files){
+                    if(f.getLocation().equals(currentDir) && f.getName().equals(name)){
+                        if(getFilesFromLocation(newDirection).contains(f.getName() + "." + f.getExtention())){
+                            System.out.print("\nYa hay un archivo con ese nombre en el destino, digite el nuevo nombre para su archivo: ");
+                            String newName = sc.nextLine();
+                            f.setName(newName);
+                        }
+                        f.setLocation(newDirection);
+                    }
+                }
+            }
+            
+            else if (str.equals("ReMove")){
+                System.out.print("\nDesea eliminar un archivo o un directorio? ");
+                String answer = sc.nextLine();
+                if(answer.equals("d")){
+                    System.out.print("\nDigite el nombre del directorio que desea borrar: ");
+                    String name = sc.nextLine();
+                    deleteDir(name);
+                }else{
+                    System.out.print("\nDigite el nombre del archivo que desea borrar: ");
+                    str = sc.nextLine();
+                    String[] data = str.split("\\.");
+                    String name = data[0];
+                    String extension = "." + data[1];
+                    deleteFile(name, extension);
+                }
+            }
+            
+            else if (str.equals("FIND")){
+                System.out.print("\nDesea buscar un archivo o un directorio? ");
+                String answer = sc.nextLine();
+                if(answer.equals("d")){
+                    System.out.print("\nDigite el nombre del directorio que desea buscar: ");
+                    String name = sc.nextLine();
+                    findDir(name);
+                }else{
+                    System.out.print("\nDigite el nombre del archivo que desea buscar: ");
+                    str = sc.nextLine();
+                    String[] data = str.split("\\.");
+                    String name = data[0];
+                    String extension = "." + data[1];
+                    findFile(name, extension);
+                }
+            }
+            
+            else if (str.equals("TREE")){
+                
+            }
+            
             else{
                 System.out.println("Comando no reconocido\n>");
             }
@@ -149,6 +239,56 @@ public class Shell {
         for(Directory d : Directories){
             if(d.getLocation().equals(currentDir)){
                 d.insertDirectory(dir);
+            }
+        }
+    }
+    
+    public ArrayList<String> getFilesFromLocation(String location){
+        ArrayList<String> a = new ArrayList();
+        for(File f : Files){
+            if(f.getLocation().equals(location)){
+                a.add(f.getName() + "." + f.getExtention());
+            }
+        }
+        return a;
+    }
+    
+    public void deleteDir(String name){
+        for(Directory d : Directories){
+            if(d.getLocation().equals(currentDir) && d.getName().equals(name)){
+                Directories.remove(d);
+            }
+        }
+    }
+    
+    public void deleteFile(String name, String extension){
+        for(File f : Files){
+            if(f.getLocation().equals(currentDir) && f.getName().equals(name) && f.getExtention().equals(extension)){
+                Files.remove(f);
+            }
+        }
+    }
+    
+    public void findDir(String name){
+        for(Directory d : Directories){
+            if(d.getName().equals(name)){
+                System.out.println(d.getLocation());
+            }
+        }
+    }
+    
+    public void findFile(String name, String extension){
+        boolean anyName = name.equals("*");
+        boolean anyExtension = extension.equals("*");
+        for(File f : Files){
+            if(anyName && f.getExtention().equals(extension)){
+                System.out.println(f.getLocation() + "\\" + f.getName() + "." + f.getExtention());
+            } else if(anyExtension && f.getName().equals(name)){
+                System.out.println(f.getLocation() + "\\" + f.getName() + "." + f.getExtention());
+            } else if(f.getName().equals(name) && f.getExtention().equals(extension)){
+                 System.out.println(f.getLocation() + "\\" + f.getName() + "." + f.getExtention());
+            } else if(anyName && anyExtension){
+                System.out.println(f.getLocation() + "\\" + f.getName() + "." + f.getExtention());
             }
         }
     }
