@@ -48,21 +48,13 @@ public class MainWindow extends javax.swing.JFrame {
 
         paneMainView.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
         paneMainView.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-        paneMainView.setMaximumSize(new java.awt.Dimension(800, 400));
         paneMainView.setMinimumSize(new java.awt.Dimension(800, 400));
         paneMainView.setPreferredSize(new java.awt.Dimension(800, 400));
 
-        javax.swing.GroupLayout panelMainViewLayout = new javax.swing.GroupLayout(panelMainView);
-        panelMainView.setLayout(panelMainViewLayout);
-        panelMainViewLayout.setHorizontalGroup(
-            panelMainViewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 798, Short.MAX_VALUE)
-        );
-        panelMainViewLayout.setVerticalGroup(
-            panelMainViewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 398, Short.MAX_VALUE)
-        );
-
+        panelMainView.setMaximumSize(new java.awt.Dimension(32767, 32767));
+        panelMainView.setMinimumSize(new java.awt.Dimension(800, 400));
+        panelMainView.setPreferredSize(new java.awt.Dimension(800, 400));
+        panelMainView.setLayout(new javax.swing.BoxLayout(panelMainView, javax.swing.BoxLayout.LINE_AXIS));
         paneMainView.setViewportView(panelMainView);
 
         txtPath.setText("Root");
@@ -293,21 +285,21 @@ public class MainWindow extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnCambiardir;
-    private javax.swing.JButton btnCopy;
-    private javax.swing.JButton btnCreate;
-    private javax.swing.JButton btnFile;
-    private javax.swing.JButton btnListardir;
-    private javax.swing.JButton btnMkdir;
-    private javax.swing.JButton btnModfile;
-    private javax.swing.JButton btnMover;
-    private javax.swing.JButton btnRemove;
-    private javax.swing.JButton btnVerfile;
-    private javax.swing.JButton btnVerpropiedades;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTree jTree1;
+    public javax.swing.JButton btnCambiardir;
+    public javax.swing.JButton btnCopy;
+    public javax.swing.JButton btnCreate;
+    public javax.swing.JButton btnFile;
+    public javax.swing.JButton btnListardir;
+    public javax.swing.JButton btnMkdir;
+    public javax.swing.JButton btnModfile;
+    public javax.swing.JButton btnMover;
+    public javax.swing.JButton btnRemove;
+    public javax.swing.JButton btnVerfile;
+    public javax.swing.JButton btnVerpropiedades;
+    public javax.swing.JScrollPane jScrollPane1;
+    public javax.swing.JTree jTree1;
     public javax.swing.JScrollPane paneMainView;
-    private javax.swing.JPanel panelMainView;
-    private javax.swing.JTextField txtPath;
+    public javax.swing.JPanel panelMainView;
+    public javax.swing.JTextField txtPath;
     // End of variables declaration//GEN-END:variables
 }

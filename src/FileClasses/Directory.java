@@ -37,6 +37,14 @@ public class Directory {
         Directories.add(dir); 
     }
     
+    public ArrayList<File> getFiles(){
+        return Files;
+    }
+    
+    public ArrayList<Directory> getDirectories(){
+        return Directories;
+    }
+    
     public void printFiles(){
         for(File f : Files){
             System.out.print(f.getName());
