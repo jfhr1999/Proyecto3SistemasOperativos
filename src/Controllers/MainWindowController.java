@@ -8,24 +8,46 @@ import FileClasses.Directory;
 import FileClasses.File;
 import View.MainWindow;
 import java.awt.Dimension;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.util.ArrayList;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 /**
  *
  * @author Gloriana
  */
-public class MainWindowController {
+public class MainWindowController implements ActionListener{
     public MainWindow view;
     public ArrayList<File> files;
     public ArrayList<Directory> directories;
     
     public MainWindowController(MainWindow pView, Directory pDirectory){
-        view = pView;
+        this.view = pView;
         files = pDirectory.getFiles();
         directories = pDirectory.getDirectories();
         //setFileView();
-        
+        this.view.btnCreate.addActionListener(this);
+        this.view.btnFile.addActionListener(this);
+    }
+    
+    
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        String s = e.getActionCommand();
+        if(e.getSource()==this.view.btnCreate){
+            System.out.println("Oprimió CREATE");
+        }
+        else if(e.getSource()==this.view.btnFile){
+            System.out.println("Oprimió FILE");
+        }
+        else{
+            JOptionPane.showMessageDialog(view, "0currió un error con la ventana");
+        }
+
+ 
     }
     
     public void setFileView(){
