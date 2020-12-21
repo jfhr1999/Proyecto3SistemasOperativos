@@ -31,6 +31,15 @@ public class MainWindowController implements ActionListener{
         //setFileView();
         this.view.btnCreate.addActionListener(this);
         this.view.btnFile.addActionListener(this);
+        this.view.btnMkdir.addActionListener(this);
+        this.view.btnCambiardir.addActionListener(this);
+        this.view.btnModfile.addActionListener(this);
+        this.view.btnVerpropiedades.addActionListener(this);
+        this.view.btnVerfile.addActionListener(this);
+        this.view.btnCopy.addActionListener(this);
+        this.view.btnMover.addActionListener(this);
+        this.view.btnRemove.addActionListener(this);
+        this.view.btnFind.addActionListener(this);
     }
     
     
@@ -43,8 +52,35 @@ public class MainWindowController implements ActionListener{
         else if(e.getSource()==this.view.btnFile){
             System.out.println("Oprimió FILE");
         }
+        else if(e.getSource() == this.view.btnMkdir){
+            System.out.println("Oprimió MKDIR");
+        }
+        else if(e.getSource() == this.view.btnCambiardir){
+            System.out.println("Cambiar a: " + view.txtPath.getText());
+        }
+        else if(e.getSource() == this.view.btnModfile){
+            System.out.println("Oprimió ModFILE");
+        }
+        else if(e.getSource() == this.view.btnVerpropiedades){
+            System.out.println("Oprimió VER PROPIEDADES");
+        }
+        else if(e.getSource() == this.view.btnVerfile){
+            System.out.println("Oprimió VER FILE");
+        }
+        else if(e.getSource() == this.view.btnCopy){
+            System.out.println("Oprimió COPY");
+        }
+        else if(e.getSource() == this.view.btnMover){
+            System.out.println("Oprimió MOVER");
+        }
+        else if(e.getSource() == this.view.btnRemove){
+            System.out.println("Oprimió REMOVE");
+        }
+        else if(e.getSource() == this.view.btnFind){
+            System.out.println("Buscar: " + view.txtFind.getText());
+        }
         else{
-            JOptionPane.showMessageDialog(view, "0currió un error con la ventana");
+            JOptionPane.showMessageDialog(view, "Ocurrió un error con la ventana");
         }
 
  
@@ -63,11 +99,12 @@ public class MainWindowController implements ActionListener{
             
             //Crear imagen
             JLabel img = new JLabel();
-            //imagenAtaque.setIcon(new javax.swing.ImageIcon("src\\main\\resources\\nombreDeImagen"));
+            img.setIcon(new javax.swing.ImageIcon("src\\main\\resources\\folder-8x.png"));
             
             img.setMaximumSize(new java.awt.Dimension(100, 32767));
-            img.setMinimumSize(new java.awt.Dimension(100, 60));
-            img.setPreferredSize(new java.awt.Dimension(100, 60));
+            img.setMinimumSize(new java.awt.Dimension(64, 60));
+            img.setPreferredSize(new java.awt.Dimension(64, 60));
+            img.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
             newPanel.add(img);
             
             
@@ -96,11 +133,12 @@ public class MainWindowController implements ActionListener{
             
             //Crear imagen
             JLabel img = new JLabel();
-            //imagenAtaque.setIcon(new javax.swing.ImageIcon("src\\main\\resources\\nombreDeImagen"));
+            img.setIcon(new javax.swing.ImageIcon("src\\main\\resources\\file-8x.png"));
             
             img.setMaximumSize(new java.awt.Dimension(100, 32767));
-            img.setMinimumSize(new java.awt.Dimension(100, 60));
-            img.setPreferredSize(new java.awt.Dimension(100, 60));
+            img.setMinimumSize(new java.awt.Dimension(64, 60));
+            img.setPreferredSize(new java.awt.Dimension(64, 60));
+            img.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
             newPanel.add(img);
             
             

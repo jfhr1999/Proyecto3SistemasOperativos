@@ -24,42 +24,52 @@
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="1" attributes="0">
-              <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="1" attributes="0">
-                  <Component id="txtPath" max="32767" attributes="0"/>
                   <Group type="102" attributes="0">
-                      <Component id="jScrollPane1" max="32767" attributes="0"/>
+                      <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                          <Component id="btnFile" max="32767" attributes="0"/>
+                          <Component id="btnCreate" pref="91" max="32767" attributes="0"/>
+                          <Component id="btnMkdir" alignment="0" max="32767" attributes="0"/>
+                      </Group>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="paneMainView" min="-2" pref="800" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="btnModfile" alignment="0" max="32767" attributes="0"/>
+                          <Component id="btnVerpropiedades" alignment="0" pref="125" max="32767" attributes="0"/>
+                          <Component id="btnVerfile" alignment="0" max="32767" attributes="0"/>
+                      </Group>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" attributes="0">
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="btnCopy" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="btnMover" alignment="1" pref="75" max="32767" attributes="0"/>
+                              </Group>
+                              <EmptySpace min="-2" pref="381" max="-2" attributes="0"/>
+                              <Component id="txtFind" min="-2" pref="239" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="btnFind" min="-2" pref="70" max="-2" attributes="0"/>
+                          </Group>
+                          <Component id="btnRemove" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                  </Group>
+                  <Group type="102" attributes="0">
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" attributes="0">
+                              <Component id="txtPath" max="32767" attributes="0"/>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Component id="btnCambiardir" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" attributes="0">
+                              <Component id="jScrollPane1" max="32767" attributes="0"/>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Component id="paneMainView" min="-2" pref="800" max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
                   </Group>
               </Group>
               <EmptySpace min="-2" pref="57" max="-2" attributes="0"/>
-          </Group>
-          <Group type="102" alignment="0" attributes="0">
-              <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                  <Component id="btnFile" max="32767" attributes="0"/>
-                  <Component id="btnCreate" pref="91" max="32767" attributes="0"/>
-                  <Component id="btnMkdir" alignment="0" max="32767" attributes="0"/>
-              </Group>
-              <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="btnCambiardir" pref="111" max="32767" attributes="0"/>
-                  <Component id="btnListardir" max="32767" attributes="0"/>
-                  <Component id="btnModfile" alignment="0" max="32767" attributes="0"/>
-              </Group>
-              <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="btnVerpropiedades" max="32767" attributes="0"/>
-                  <Component id="btnVerfile" max="32767" attributes="0"/>
-                  <Component id="btnCopy" alignment="0" max="32767" attributes="0"/>
-              </Group>
-              <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="btnMover" max="32767" attributes="0"/>
-                  <Component id="btnRemove" max="32767" attributes="0"/>
-              </Group>
-              <EmptySpace min="-2" pref="662" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -67,7 +77,10 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="txtPath" min="-2" pref="20" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                  <Component id="btnCambiardir" pref="28" max="32767" attributes="0"/>
+                  <Component id="txtPath" max="32767" attributes="0"/>
+              </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" max="-2" attributes="0">
                   <Component id="paneMainView" max="32767" attributes="0"/>
@@ -76,24 +89,24 @@
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="btnCreate" alignment="3" min="-2" pref="28" max="-2" attributes="0"/>
-                  <Component id="btnCambiardir" alignment="3" min="-2" pref="28" max="-2" attributes="0"/>
+                  <Component id="btnModfile" alignment="3" min="-2" pref="28" max="-2" attributes="0"/>
+                  <Component id="btnCopy" alignment="3" min="-2" pref="28" max="-2" attributes="0"/>
+                  <Component id="txtFind" alignment="3" min="-2" pref="28" max="-2" attributes="0"/>
+                  <Component id="btnFind" alignment="3" min="-2" pref="28" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace pref="23" max="32767" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="btnFile" alignment="3" min="-2" pref="28" max="-2" attributes="0"/>
                   <Component id="btnVerpropiedades" alignment="3" min="-2" pref="28" max="-2" attributes="0"/>
                   <Component id="btnMover" alignment="3" min="-2" pref="28" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="btnFile" alignment="3" min="-2" pref="28" max="-2" attributes="0"/>
-                  <Component id="btnListardir" alignment="3" min="-2" pref="28" max="-2" attributes="0"/>
+                  <Component id="btnMkdir" alignment="3" min="-2" pref="28" max="-2" attributes="0"/>
                   <Component id="btnVerfile" alignment="3" min="-2" pref="28" max="-2" attributes="0"/>
                   <Component id="btnRemove" alignment="3" min="-2" pref="28" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="btnMkdir" alignment="3" min="-2" pref="28" max="-2" attributes="0"/>
-                  <Component id="btnModfile" alignment="3" min="-2" pref="28" max="-2" attributes="0"/>
-                  <Component id="btnCopy" alignment="3" min="-2" pref="28" max="-2" attributes="0"/>
-              </Group>
-              <EmptySpace pref="14" max="32767" attributes="0"/>
+              <EmptySpace max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -118,9 +131,6 @@
       <SubComponents>
         <Container class="javax.swing.JPanel" name="panelMainView">
           <Properties>
-            <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-              <Dimension value="[32767, 32767]"/>
-            </Property>
             <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
               <Dimension value="[800, 400]"/>
             </Property>
@@ -203,17 +213,6 @@
         <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
       </AuxValues>
     </Component>
-    <Component class="javax.swing.JButton" name="btnListardir">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="ListarDIR"/>
-      </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnListardirActionPerformed"/>
-      </Events>
-      <AuxValues>
-        <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
-      </AuxValues>
-    </Component>
     <Component class="javax.swing.JButton" name="btnModfile">
       <Properties>
         <Property name="text" type="java.lang.String" value="ModFILE"/>
@@ -275,6 +274,22 @@
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnRemoveActionPerformed"/>
+      </Events>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
+      </AuxValues>
+    </Component>
+    <Component class="javax.swing.JTextField" name="txtFind">
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
+      </AuxValues>
+    </Component>
+    <Component class="javax.swing.JButton" name="btnFind">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="FIND"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnFindActionPerformed"/>
       </Events>
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
