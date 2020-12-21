@@ -191,7 +191,13 @@ public class Shell {
             }
             
             else if (str.equals("TREE")){
+                Directory cuDir = getCurrentDir();
+                cuDir.printTree("-");
                 
+            }
+            
+            else if(str.equals("EXIT")){
+                break;
             }
             
             else{
@@ -291,5 +297,15 @@ public class Shell {
                 System.out.println(f.getLocation() + "\\" + f.getName() + "." + f.getExtention());
             }
         }
+    }
+    
+    public Directory getCurrentDir(){
+        Directory currentDirr = new Directory();
+        for(Directory d : Directories){
+            if(d.getLocation().equals(this.currentDir)){
+                currentDirr = d;
+            }
+        }
+        return currentDirr;
     }
 }
