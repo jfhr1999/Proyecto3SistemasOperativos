@@ -72,16 +72,4 @@ public class Directory {
         return str;
     }
     
-    public void printTree(String tab){
-        System.out.print(tab + getName()+"\n");
-        for(Directory d: Directories){
-            d.printTree(tab + tab);
-        }
-        
-        for(File f: Files){
-            f.printTree(tab + tab);
-        }
-        
-    }
-    
 }

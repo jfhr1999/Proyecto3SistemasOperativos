@@ -87,10 +87,6 @@ public class File {
         this.size = size;
     }
     
-    public void printTree(String tab){
-        System.out.print(tab + toString() + "\n");
-    }
-    
     
     
     @Override
