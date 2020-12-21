@@ -292,4 +292,30 @@ public class Shell {
             }
         }
     }
+    
+    public String getCurrentDir(){
+        return currentDir;
+    }
+    
+    public void setCurrentDir(String currentDir){
+        this.currentDir = currentDir;
+    }
+
+    public ArrayList<File> getFiles() {
+        return Files;
+    }
+
+    public void setFiles(ArrayList<File> Files) {
+        this.Files = Files;
+    }
+
+    public ArrayList<Directory> getDirectories() {
+        return Directories;
+    }
+
+    public void setDirectories(ArrayList<Directory> Directories) {
+        this.Directories = Directories;
+    }
+    
+    
 }

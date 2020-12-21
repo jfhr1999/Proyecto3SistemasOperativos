@@ -27,8 +27,6 @@ public class MainWindow extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        paneMainView = new javax.swing.JScrollPane();
-        panelMainView = new javax.swing.JPanel();
         txtPath = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTree1 = new javax.swing.JTree();
@@ -44,18 +42,10 @@ public class MainWindow extends javax.swing.JFrame {
         btnRemove = new javax.swing.JButton();
         txtFind = new javax.swing.JTextField();
         btnFind = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jList = new javax.swing.JList<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        paneMainView.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
-        paneMainView.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-        paneMainView.setMinimumSize(new java.awt.Dimension(800, 400));
-        paneMainView.setPreferredSize(new java.awt.Dimension(800, 400));
-
-        panelMainView.setMinimumSize(new java.awt.Dimension(800, 400));
-        panelMainView.setPreferredSize(new java.awt.Dimension(800, 400));
-        panelMainView.setLayout(new javax.swing.BoxLayout(panelMainView, javax.swing.BoxLayout.LINE_AXIS));
-        paneMainView.setViewportView(panelMainView);
 
         txtPath.setText("Root");
 
@@ -138,6 +128,13 @@ public class MainWindow extends javax.swing.JFrame {
             }
         });
 
+        jList.setModel(new javax.swing.AbstractListModel<String>() {
+            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+            public int getSize() { return strings.length; }
+            public String getElementAt(int i) { return strings[i]; }
+        });
+        jScrollPane2.setViewportView(jList);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -176,7 +173,7 @@ public class MainWindow extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jScrollPane1)
                                 .addGap(18, 18, 18)
-                                .addComponent(paneMainView, javax.swing.GroupLayout.PREFERRED_SIZE, 800, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 800, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addGap(57, 57, 57))
         );
         layout.setVerticalGroup(
@@ -188,8 +185,8 @@ public class MainWindow extends javax.swing.JFrame {
                     .addComponent(txtPath))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(paneMainView, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane1))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
+                    .addComponent(jScrollPane2))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCreate, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -304,10 +301,10 @@ public class MainWindow extends javax.swing.JFrame {
     public javax.swing.JButton btnRemove;
     public javax.swing.JButton btnVerfile;
     public javax.swing.JButton btnVerpropiedades;
+    public javax.swing.JList<String> jList;
     public javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     public javax.swing.JTree jTree1;
-    public javax.swing.JScrollPane paneMainView;
-    public javax.swing.JPanel panelMainView;
     public javax.swing.JTextField txtFind;
     public javax.swing.JTextField txtPath;
     // End of variables declaration//GEN-END:variables
