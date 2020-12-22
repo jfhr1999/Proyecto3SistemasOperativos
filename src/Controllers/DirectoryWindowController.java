@@ -56,7 +56,7 @@ public class DirectoryWindowController implements ActionListener  {
 //<<<<<<< Updated upstream
                     //this.mainController.updateWindow();
                     
-                    this.shell.insertDir(dir);
+                    //this.shell.insertDir(dir);
 //=======
                     this.shell.printDir();
                     
