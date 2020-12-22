@@ -7,6 +7,8 @@ package Controllers;
 import FileClasses.Directory;
 import FileClasses.File;
 import FileClasses.Shell;
+import View.DirectoryWindow;
+import View.FileWindow;
 import View.IconLabelListRenderer;
 import View.ListItem;
 import View.MainWindow;
@@ -15,6 +17,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 import javax.swing.DefaultListModel;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -22,6 +25,7 @@ import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.ListModel;
+import javax.swing.border.EmptyBorder;
 /**
  *
  * @author Gloriana
@@ -43,7 +47,6 @@ public class MainWindowController extends JFrame implements ActionListener{
         this.view.btnMkdir.addActionListener(this);
         this.view.btnCambiardir.addActionListener(this);
         this.view.btnModfile.addActionListener(this);
-        this.view.btnVerpropiedades.addActionListener(this);
         this.view.btnVerfile.addActionListener(this);
         this.view.btnCopy.addActionListener(this);
         this.view.btnMover.addActionListener(this);
@@ -54,6 +57,8 @@ public class MainWindowController extends JFrame implements ActionListener{
         
         DefaultListModel listModel = new DefaultListModel();
         this.itemList = this.view.jList;
+        this.view.jList.setFixedCellHeight(20);
+        this.view.jList.setBorder(new EmptyBorder(0, 5, 0, 0));
         this.view.jList.setModel((ListModel) listModel);
         this.view.jList.setCellRenderer(new IconLabelListRenderer());
         
@@ -70,28 +75,66 @@ public class MainWindowController extends JFrame implements ActionListener{
         else if(e.getSource()==this.view.btnFile){
             System.out.println("Oprimió FILE");
             //Agregar a shell
-            loadItemList();
+            FileWindow fileWindow = new FileWindow();
+            FileWindowController fileWindowC = new FileWindowController(fileWindow, this.shell, this);
+            fileWindowC.view.setVisible(true);
+            this.loadItemList();
         }
         else if(e.getSource() == this.view.btnMkdir){
             System.out.println("Oprimió MKDIR");
             //Agregar a shell
-            loadItemList();
+            DirectoryWindow dirWindow = new DirectoryWindow();
+            DirectoryWindowController dirWindowC = new DirectoryWindowController(dirWindow, this.shell, this);
+            dirWindowC.view.setVisible(true);
+            this.loadItemList();
         }
         else if(e.getSource() == this.view.btnCambiardir){
             System.out.println("Cambiar a: " + view.txtPath.getText());
             if(shell.checkLocation(view.txtPath.getText())){
                 shell.setCurrentDir(view.txtPath.getText());
-                loadItemList();
+                this.loadItemList();
+            } else{
+                JOptionPane.showMessageDialog(view, "Path no válido");
             }
         }
         else if(e.getSource() == this.view.btnModfile){
             System.out.println("Oprimió ModFILE");
-        }
-        else if(e.getSource() == this.view.btnVerpropiedades){
-            System.out.println("Oprimió VER PROPIEDADES");
+            
+            DefaultListModel listModel = (DefaultListModel) this.view.jList.getModel();
+            try{
+                ListItem selectedItem = (ListItem) listModel.getElementAt(this.view.jList.getSelectedIndex());
+                String selectedValue = selectedItem.toString();
+
+                if(selectedValue.contains(".")){ //Si es un archivo, es decir, si tiene un punto
+                    FileWindow fileWindow = new FileWindow();
+                    FileWindowController fileWindowC = new FileWindowController(fileWindow, this.shell, this, selectedValue, false);
+                    fileWindowC.view.setVisible(true);
+                    this.loadItemList();
+                } else {
+                    JOptionPane.showMessageDialog(view, "Esta operación no es válida para directorios.");
+                }
+            } catch(Exception exc){
+                JOptionPane.showMessageDialog(view, "Seleccione un elemento de la lista para realizar esta operación");
+            }
         }
         else if(e.getSource() == this.view.btnVerfile){
             System.out.println("Oprimió VER FILE");
+            DefaultListModel listModel = (DefaultListModel) this.view.jList.getModel();
+            try{
+                ListItem selectedItem = (ListItem) listModel.getElementAt(this.view.jList.getSelectedIndex());
+                String selectedValue = selectedItem.toString();
+
+                if(selectedValue.contains(".")){ //Si es un archivo, es decir, si tiene un punto
+                    FileWindow fileWindow = new FileWindow();
+                    FileWindowController fileWindowC = new FileWindowController(fileWindow, this.shell, this, selectedValue, true);
+                    fileWindowC.view.setVisible(true);
+                    //this.loadItemList();
+                } else {
+                    JOptionPane.showMessageDialog(view, "Esta operación no es válida para directorios.");
+                }
+            } catch(Exception exc){
+                JOptionPane.showMessageDialog(view, "Seleccione un elemento de la lista para realizar esta operación");
+            }
         }
         else if(e.getSource() == this.view.btnCopy){
             System.out.println("Oprimió COPY");
@@ -104,12 +147,23 @@ public class MainWindowController extends JFrame implements ActionListener{
         }
         else if(e.getSource() == this.view.btnFind){
             System.out.println("Buscar: " + view.txtFind.getText());
+            if(this.view.txtFind.getText().equals("")){ //No hay nada que buscar, resetea, hace un listarDir
+                this.loadItemList();
+            } 
+            //Meter aqui if else para las opciones de busqueda
+            else{
+                JOptionPane.showMessageDialog(view, "Búsqueda para '" + this.view.txtFind.getText() + "' no habilitada aún");
+            }
         }
         else{
             JOptionPane.showMessageDialog(view, "Ocurrió un error con la ventana");
         }
 
  
+    }
+    
+    public void updateWindow(){
+        loadItemList();
     }
     
     private void loadItemList(){
@@ -127,7 +181,7 @@ public class MainWindowController extends JFrame implements ActionListener{
         
         for(File f: files){
             if(f.getLocation().equals(this.shell.getCurrentDir())){
-                listModel.addElement(new ListItem(f.getName() + "." + f.getExtention(), false));
+                listModel.addElement(new ListItem(f.getName() + "." + f.getExtention(), false, f.getCreationDate(), f.getModificationDate(), f.getSize()));
             }
             
         }
@@ -136,105 +190,5 @@ public class MainWindowController extends JFrame implements ActionListener{
         
     }
     
-    public void setFileView(){
-        
-        files = shell.getFiles();
-        directories = shell.getDirectories();
-        
-        //Agrega directorios
-        for(Directory d : directories){
-            //Crear panel donde vamos a meter todo
-            /*JPanel newPanel = new JPanel();
-            newPanel.setMinimumSize(new java.awt.Dimension(100, 100));
-            newPanel.setPreferredSize(new java.awt.Dimension(100, 100));
-            newPanel.setLayout(new javax.swing.BoxLayout(newPanel, javax.swing.BoxLayout.Y_AXIS));
-            
-            
-            //Crear imagen
-            JLabel img = new JLabel();
-            img.setIcon(new javax.swing.ImageIcon("src\\main\\resources\\folder-2x.png"));
-            
-            img.setMaximumSize(new java.awt.Dimension(100, 30));
-            img.setMinimumSize(new java.awt.Dimension(100, 30));
-            img.setPreferredSize(new java.awt.Dimension(100, 30));
-            img.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-            newPanel.add(img);
-            
-            
-            //Crear label para el nombre
-            JLabel lblName = new JLabel();
-            lblName.setText(d.getName());
-            
-            lblName.setVerticalAlignment(javax.swing.SwingConstants.TOP);
-            lblName.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-            lblName.setMaximumSize(new java.awt.Dimension(100, 32767));
-            lblName.setMinimumSize(new java.awt.Dimension(100, 70));
-            lblName.setPreferredSize(new java.awt.Dimension(100, 70));
-            newPanel.add(lblName);
-            
-            
-            view.panelMainView.add(newPanel);*/
-        }
-        
-        //Agrega archivos
-        for(File f : files){
-            //Crear panel donde vamos a meter todo
-            /*JPanel newPanel = new JPanel();
-            newPanel.setMinimumSize(new java.awt.Dimension(100, 100));
-            newPanel.setPreferredSize(new java.awt.Dimension(100, 100));
-            newPanel.setLayout(new javax.swing.BoxLayout(newPanel, javax.swing.BoxLayout.Y_AXIS));
-            
-            
-            //Crear imagen
-            JLabel img = new JLabel();
-            img.setIcon(new javax.swing.ImageIcon("src\\main\\resources\\file-2x.png"));
-            
-            img.setMaximumSize(new java.awt.Dimension(100, 30));
-            img.setMinimumSize(new java.awt.Dimension(100, 30));
-            img.setPreferredSize(new java.awt.Dimension(100, 30));
-            img.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-            newPanel.add(img);
-            
-            
-            
-            //Crear label para el nombre
-            JLabel lblName = new JLabel();
-            lblName.setText(f.getName() + "." + f.getExtention()); //El punto ya viene incluido?????
-            
-            lblName.setVerticalAlignment(javax.swing.SwingConstants.TOP);
-            lblName.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-            lblName.setMaximumSize(new java.awt.Dimension(100, 32767));
-            lblName.setMinimumSize(new java.awt.Dimension(100, 70));
-            lblName.setPreferredSize(new java.awt.Dimension(100, 70));
-            newPanel.add(lblName);
-            
-            view.panelMainView.add(newPanel);*/
-            
-        }
-        
-        
-        
-        //Cambia el size del panel del scrollbar
-        //Si la cantidad no abarca todo el espacio, se queda igual
-        //Si abarca mas, se ajusta al tamano de los componentes
-        /*int height;
-        
-        if(100 * roundUp(directories.size() + files.size(), 8) < view.paneMainView.getMinimumSize().height){
-            height = view.paneMainView.getMinimumSize().height;
-        } else{
-            height = 100 * roundUp(directories.size() + files.size(), 8);
-        }
-        
-        
-        view.paneMainView.setPreferredSize(new Dimension(820, height + 20)); //20 mas en cada lado para compensar por los scrollbars
-        view.paneMainView.setMinimumSize(new Dimension(820, height + 20));
-        view.panelMainView.setPreferredSize(new Dimension(820, height + 20));
-        view.panelMainView.setMinimumSize(new Dimension(820, height + 20));
-        */
-        
-    }
     
-    public static int roundUp(int num, int divisor) {
-        return (num + divisor - 1) / divisor;
-    }
 }

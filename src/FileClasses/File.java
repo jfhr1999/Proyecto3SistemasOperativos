@@ -50,7 +50,7 @@ public class File {
     public String getContent() {
         return Content;
     }
-
+    
     public void setContent(String Content) {
         this.Content = Content;
     }

@@ -31,12 +31,18 @@ public class IconLabelListRenderer extends DefaultListCellRenderer{
         
         if(item.isDir){
             this.label.setIcon(new ImageIcon(folderPath));
+            this.label.setToolTipText(item.label);
         } else{
             this.label.setIcon(new ImageIcon(filePath));
+            this.label.setToolTipText("<html><p>Nombre: " + item.label + 
+                    "</p>\n<p>Creación: " + item.creationDate.toString() + 
+                    "</p>\n<p>Modificación: " + item.modificationDate.toString() +
+                    "</p>\n<p>Tamaño: " + item.size + "KB" +
+                    "</p>\n</html>");
         }
         
         this.label.setText(item.label);
-        this.label.setToolTipText(item.label);
+        
         
         if(selected){
             label.setBackground(list.getSelectionBackground());

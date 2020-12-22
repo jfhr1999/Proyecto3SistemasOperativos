@@ -228,6 +228,7 @@ public class Shell {
     }
     
     public void insertFile(File f){
+        Files.add(f); //TEMPORAL
         for(Directory d : Directories){
             if(d.getLocation().equals(currentDir)){
                 d.insertFile(f);
@@ -235,7 +236,20 @@ public class Shell {
         }
     }
     
+    public void modifyFile(String name, String content){
+        String[] data = name.split("\\.");
+        String nombre = data[0];
+        String extension = data[1];
+        for(File f : Files){
+            if(f.getName().equals(name) && f.getExtention().equals(extension) && f.getLocation().equals(currentDir)){
+                f.setContent(content);
+                f.setModificationDate(new Date());
+            }
+        }
+    }
+    
     public void insertDir(Directory dir){
+        Directories.add(dir); //TEMPORAL
         for(Directory d : Directories){
             if(d.getLocation().equals(currentDir)){
                 d.insertDirectory(dir);
