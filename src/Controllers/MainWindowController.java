@@ -12,6 +12,7 @@ import View.FileWindow;
 import View.IconLabelListRenderer;
 import View.ListItem;
 import View.MainWindow;
+import View.MoveWindow;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -144,6 +145,17 @@ public class MainWindowController extends JFrame implements ActionListener{
         }
         else if(e.getSource() == this.view.btnMover){
             System.out.println("Oprimió MOVER");
+            DefaultListModel listModel = (DefaultListModel) this.view.jList.getModel();
+            try{
+                ListItem selectedItem = (ListItem) listModel.getElementAt(this.view.jList.getSelectedIndex());
+                String selectedValue = selectedItem.toString();
+                
+                MoveWindow moveWindow = new MoveWindow();
+                MoveWindowController moveWindowC = new MoveWindowController(moveWindow, this.shell, this);
+                moveWindowC.view.setVisible(true);
+            } catch(Exception exc){
+                JOptionPane.showMessageDialog(view, "Seleccione un elemento de la lista para realizar esta operación");
+            }
         }
         else if(e.getSource() == this.view.btnRemove){
             System.out.println("Oprimió REMOVE");
@@ -162,12 +174,6 @@ public class MainWindowController extends JFrame implements ActionListener{
                         i++;
                         if((f.getName() + "." + f.getExtention()).equals(selectedValue) && f.getLocation().equals(this.shell.getCurrentDir())){
                             iterator = i;
-//<<<<<<< Updated upstream
-                        //}
-                   // }
-                   // if(iterator >= 0) this.shell.getFiles().remove(iterator);
-                    
-//=======
                             location = f.getLocation();
                             name = f.getName();
                             extension = f.getExtention();
@@ -179,20 +185,12 @@ public class MainWindowController extends JFrame implements ActionListener{
                             d.removeFileFromDir(name, extension);
                         }
                     }
-//>>>>>>> Stashed changes
                 } else {
                     ArrayList<File> filesToDelete = new ArrayList();
                     int i = -1;
                     int iterator = -1;
                     for(Directory d: this.shell.getDirectories()){
                         i++;
-//<<<<<<< Updated upstream
-                        //if(d.getName().equals(selectedValue) && d.getLocation().equals(this.shell.getCurrentDir())){
-                           // iterator = i;
-                        //}
-                   // }
-                   // if(iterator >= 0) this.shell.getDirectories().remove(iterator);
-//=======
                         if(d.getName().equals(selectedValue) && d.getLocation().equals(this.shell.getCurrentDir() + "\\" + d.getName())){
                             int p = d.getLocation().lastIndexOf("\\");
                             String k = d.getLocation().substring(0, p);
@@ -216,7 +214,6 @@ public class MainWindowController extends JFrame implements ActionListener{
                         int j = this.shell.getIndexOfFile(f.getName(), f.getExtention(), f.getLocation());
                         this.shell.getFiles().remove(j);
                     }
-//>>>>>>> Stashed changes
                 }
                 this.loadItemList();
             } catch(Exception exc){
