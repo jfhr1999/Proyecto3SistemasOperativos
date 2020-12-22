@@ -5,12 +5,13 @@
  */
 package Controllers;
 
-import FileClasses.Directory;
+import FileClasses.*;
 import FileClasses.Shell;
 import View.DirectoryWindow;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JOptionPane;
+import java.util.*;
 
 /**
  *
@@ -36,23 +37,39 @@ public class DirectoryWindowController implements ActionListener  {
             
             if(this.shell.checkDir(this.view.txtDirectoryName.getText())){
                 if(JOptionPane.showConfirmDialog(null, "Ya existe un directorio con este nombre, ¿desea reemplazarlo con este?", "Confirmar", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION){
+                    ArrayList<File> filesToDelete = new ArrayList();
                     
-                    int i = -1;
-                    int iterator = -1;
-                    for(Directory d: this.shell.getDirectories()){
-                        i++;
+                    this.shell.printDir();
+                    
+                    for(Directory d : this.shell.getDirectories()){
                         if(d.getName().equals(this.view.txtDirectoryName.getText()) && d.getLocation().equals(this.shell.getCurrentDir() + "\\" + this.view.txtDirectoryName.getText())){
-                            i = iterator;
+                            d.clearContents();
+                            System.out.println("------------------- " + d.getLocation());
+                            for(File f : this.shell.getFiles()){
+                                if(f.getLocation().equals(d.getLocation())){
+                                    filesToDelete.add(f);
+                                }
+                            }
                         }
                     }
-                    if(i >= 0) this.shell.getDirectories().remove(i);
                     
-                    this.mainController.updateWindow();
+//<<<<<<< Updated upstream
+                    //this.mainController.updateWindow();
                     
                     this.shell.insertDir(dir);
+//=======
+                    this.shell.printDir();
+                    
+                    for(File f : filesToDelete){
+                        int i = this.shell.getIndexOfFile(f.getName(), f.getExtention(), f.getLocation());
+                        this.shell.getFiles().remove(i);
+                    }
+                    
+//>>>>>>> Stashed changes
                     this.mainController.updateWindow();
                     this.view.setVisible(false);
                     this.view.dispose();
+                    
                 }
             } else{
                 this.shell.insertDir(dir);

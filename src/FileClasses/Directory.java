@@ -72,9 +72,33 @@ public class Directory {
             str += d.getName() + "\n";
         }
         for(File f : Files){
-            str += f.getName() + f.getExtention() + "\n";
+            str += f.getName() + "." + f.getExtention() + "\n";
         }
         return str;
+    }
+    
+    public void removeFileFromDir(String name, String extension){
+        int i = 0;
+        int j = 0;
+        for(File f : Files){
+            if(f.getName().equals(name) && f.getExtention().equals(extension)){
+                j = i;
+            }
+            i++;
+        }
+        Files.remove(j);
+    }
+    
+    public void removeDirFromDir(String name){
+        int i = 0;
+        int j = 0;
+        for(Directory f : Directories){
+            if(f.getName().equals(name)){
+                j = i;
+            }
+            i++;
+        }
+        Directories.remove(j);
     }
     
 }

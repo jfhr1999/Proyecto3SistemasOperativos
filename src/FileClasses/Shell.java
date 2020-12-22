@@ -219,6 +219,7 @@ public class Shell {
     }
     
     public boolean checkLocation(String desiredLocation){
+        printDir();
         for(Directory d : Directories){
             if(d.getLocation().equals(desiredLocation)){
                 return true;
@@ -373,5 +374,20 @@ public class Shell {
         this.Directories = Directories;
     }
     
+    public void printDir(){
+        for(Directory d : Directories){
+            System.out.println(d.getLocation());
+        }
+    }
     
+    public int getIndexOfFile(String name, String extension, String location){
+        int i = 0;
+        for(File f : Files){
+            if(f.getName().equals(name) && f.getExtention().equals(extension) && f.getLocation().equals(location)){
+                return i;
+            }
+            i++;
+        }
+        return i;
+    }
 }

@@ -155,24 +155,68 @@ public class MainWindowController extends JFrame implements ActionListener{
                 if(selectedValue.contains(".")){ //Si es un archivo, es decir, si tiene un punto
                     int i = -1;
                     int iterator = -1;
+                    String location = "";
+                    String name = "";
+                    String extension = "";
                     for(File f: this.shell.getFiles()){
                         i++;
                         if((f.getName() + "." + f.getExtention()).equals(selectedValue) && f.getLocation().equals(this.shell.getCurrentDir())){
                             iterator = i;
+//<<<<<<< Updated upstream
+                        //}
+                   // }
+                   // if(iterator >= 0) this.shell.getFiles().remove(iterator);
+                    
+//=======
+                            location = f.getLocation();
+                            name = f.getName();
+                            extension = f.getExtention();
                         }
                     }
                     if(iterator >= 0) this.shell.getFiles().remove(iterator);
-                    
+                    for(Directory d : this.shell.getDirectories()){
+                        if(d.getLocation().equals(location)){
+                            d.removeFileFromDir(name, extension);
+                        }
+                    }
+//>>>>>>> Stashed changes
                 } else {
+                    ArrayList<File> filesToDelete = new ArrayList();
                     int i = -1;
                     int iterator = -1;
                     for(Directory d: this.shell.getDirectories()){
                         i++;
-                        if(d.getName().equals(selectedValue) && d.getLocation().equals(this.shell.getCurrentDir())){
+//<<<<<<< Updated upstream
+                        //if(d.getName().equals(selectedValue) && d.getLocation().equals(this.shell.getCurrentDir())){
+                           // iterator = i;
+                        //}
+                   // }
+                   // if(iterator >= 0) this.shell.getDirectories().remove(iterator);
+//=======
+                        if(d.getName().equals(selectedValue) && d.getLocation().equals(this.shell.getCurrentDir() + "\\" + d.getName())){
+                            int p = d.getLocation().lastIndexOf("\\");
+                            String k = d.getLocation().substring(0, p);
+                            for(Directory z : this.shell.getDirectories()){
+                                if(z.getLocation().equals(k)){
+                                    z.removeDirFromDir(selectedValue);
+                                }
+                            }
                             iterator = i;
+                            for(File f : this.shell.getFiles()){
+                                if(f.getLocation().equals(d.getLocation())){
+                                    filesToDelete.add(f);
+                                }
+                            }
                         }
                     }
+                    
                     if(iterator >= 0) this.shell.getDirectories().remove(iterator);
+                    this.shell.printDir();
+                    for(File f : filesToDelete){
+                        int j = this.shell.getIndexOfFile(f.getName(), f.getExtention(), f.getLocation());
+                        this.shell.getFiles().remove(j);
+                    }
+//>>>>>>> Stashed changes
                 }
                 this.loadItemList();
             } catch(Exception exc){
@@ -210,6 +254,7 @@ public class MainWindowController extends JFrame implements ActionListener{
         
         DefaultListModel listModel = (DefaultListModel)this.view.jList.getModel();
         listModel.removeAllElements();
+        
         ArrayList<Directory> dirs = this.shell.getDirectoriesFromLocation(this.shell.getCurrentDir());
         for(Directory d: dirs){
             listModel.addElement(new ListItem(d.getName(), true));
