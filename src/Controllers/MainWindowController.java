@@ -158,10 +158,10 @@ public class MainWindowController extends JFrame implements ActionListener{
                     for(File f: this.shell.getFiles()){
                         i++;
                         if((f.getName() + "." + f.getExtention()).equals(selectedValue) && f.getLocation().equals(this.shell.getCurrentDir())){
-                            i = iterator;
+                            iterator = i;
                         }
                     }
-                    if(i >= 0) this.shell.getFiles().remove(i);
+                    if(iterator >= 0) this.shell.getFiles().remove(iterator);
                     
                 } else {
                     int i = -1;
@@ -169,10 +169,10 @@ public class MainWindowController extends JFrame implements ActionListener{
                     for(Directory d: this.shell.getDirectories()){
                         i++;
                         if(d.getName().equals(selectedValue) && d.getLocation().equals(this.shell.getCurrentDir())){
-                            i = iterator;
+                            iterator = i;
                         }
                     }
-                    if(i >= 0) this.shell.getDirectories().remove(i);
+                    if(iterator >= 0) this.shell.getDirectories().remove(iterator);
                 }
                 this.loadItemList();
             } catch(Exception exc){

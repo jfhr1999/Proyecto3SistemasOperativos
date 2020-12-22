@@ -47,6 +47,8 @@ public class DirectoryWindowController implements ActionListener  {
                     }
                     if(i >= 0) this.shell.getDirectories().remove(i);
                     
+                    this.mainController.updateWindow();
+                    
                     this.shell.insertDir(dir);
                     this.mainController.updateWindow();
                     this.view.setVisible(false);
