@@ -173,10 +173,9 @@ public class MainWindowController extends JFrame implements ActionListener{
         
         DefaultListModel listModel = (DefaultListModel)this.view.jList.getModel();
         listModel.removeAllElements();
-        for(Directory d: directories){
-            if(d.getLocation().equals(this.shell.getCurrentDir())){
-                listModel.addElement(new ListItem(d.getName(), true));
-            }
+        ArrayList<Directory> dirs = this.shell.getDirectoriesFromLocation(this.shell.getCurrentDir());
+        for(Directory d: dirs){
+            listModel.addElement(new ListItem(d.getName(), true));
         }
         
         for(File f: files){

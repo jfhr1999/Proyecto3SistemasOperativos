@@ -241,7 +241,7 @@ public class Shell {
         String nombre = data[0];
         String extension = data[1];
         for(File f : Files){
-            if(f.getName().equals(name) && f.getExtention().equals(extension) && f.getLocation().equals(currentDir)){
+            if(f.getName().equals(nombre) && f.getExtention().equals(extension) && f.getLocation().equals(currentDir)){
                 f.setContent(content);
                 f.setModificationDate(new Date());
             }
@@ -265,6 +265,26 @@ public class Shell {
             }
         }
         return a;
+    }
+    
+    public ArrayList<File> getFileArrayFromLocation(String location){
+        ArrayList<File> a = new ArrayList();
+        for(File f: Files){
+            if(f.getLocation().equals(location)){
+                a.add(f);
+            }
+        }
+        return a;
+    }
+    
+    public ArrayList<Directory> getDirectoriesFromLocation(String location){
+        ArrayList<Directory> dirs = new ArrayList();
+        for(Directory d: Directories){
+            if(d.getLocation().equals(location)){
+                dirs = d.getDirectories();
+            }
+        }
+        return dirs;
     }
     
     public void deleteDir(String name){

@@ -30,6 +30,7 @@ public class FileWindowController implements ActionListener {
         this.view.btnSave.addActionListener(this);
         this.mainController = mainController;
         this.isModifying = false;
+        this.isViewing = false;
     }
     
     public FileWindowController(FileWindow pView, Shell pShell, MainWindowController mainController, String fullName, boolean isViewing){
