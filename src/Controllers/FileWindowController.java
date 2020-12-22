@@ -74,7 +74,8 @@ public class FileWindowController implements ActionListener {
             if(!isModifying){ //Si esta creando el archivo
                 if(this.shell.checkExist(nombre, extension)){ //Si ya existe, pregunta si se quiere sobreescribir
                     if(JOptionPane.showConfirmDialog(null, "Ya existe un archivo con este nombre, ¿desea reemplazarlo con este?", "Confirmar", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION){
-                        this.shell.insertFile(file);
+                        //this.shell.insertFile(file);
+                        this.shell.overwriteFile(fileName, this.view.txtFileContents.getText());
                         this.mainController.updateWindow();
                         this.view.setVisible(false);
                         this.view.dispose();

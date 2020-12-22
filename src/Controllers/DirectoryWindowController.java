@@ -33,8 +33,20 @@ public class DirectoryWindowController implements ActionListener  {
         String s = e.getActionCommand();
         if(e.getSource()==this.view.btnSave){
             Directory dir = new Directory(this.view.txtDirectoryName.getText(), this.shell.getCurrentDir() + "\\" + this.view.txtDirectoryName.getText());
+            
             if(this.shell.checkDir(this.view.txtDirectoryName.getText())){
                 if(JOptionPane.showConfirmDialog(null, "Ya existe un directorio con este nombre, ¿desea reemplazarlo con este?", "Confirmar", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION){
+                    
+                    int i = -1;
+                    int iterator = -1;
+                    for(Directory d: this.shell.getDirectories()){
+                        i++;
+                        if(d.getName().equals(this.view.txtDirectoryName.getText()) && d.getLocation().equals(this.shell.getCurrentDir() + "\\" + this.view.txtDirectoryName.getText())){
+                            i = iterator;
+                        }
+                    }
+                    if(i >= 0) this.shell.getDirectories().remove(i);
+                    
                     this.shell.insertDir(dir);
                     this.mainController.updateWindow();
                     this.view.setVisible(false);

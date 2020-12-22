@@ -211,7 +211,7 @@ public class Shell {
     
     public boolean checkDir(String name){
         for(Directory d : Directories){
-            if(d.getName().equals(name) && d.getLocation().equals(currentDir)){
+            if(d.getName().equals(name) && d.getLocation().equals(currentDir + "\\" + name)){
                 return true;
             }
         }
@@ -246,6 +246,28 @@ public class Shell {
                 f.setModificationDate(new Date());
             }
         }
+    }
+    
+    public void overwriteFile(String name, String content){
+        String[] data = name.split("\\.");
+        String nombre = data[0];
+        String extension = data[1];
+        for(File f : Files){
+            if(f.getName().equals(nombre) && f.getExtention().equals(extension) && f.getLocation().equals(currentDir)){
+                f.setContent(content);
+                f.setModificationDate(new Date());
+                f.setCreationDate(new Date());
+            }
+        }
+    }
+    
+    public void overwriteDir(String location){
+        for(Directory d: Directories){
+            if(d.getLocation().equals(location)){
+                d.clearContents();
+            }
+        }
+        
     }
     
     public void insertDir(Directory dir){

@@ -24,8 +24,11 @@ import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JTree;
 import javax.swing.ListModel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.DefaultTreeModel;
 /**
  *
  * @author Gloriana
@@ -144,6 +147,37 @@ public class MainWindowController extends JFrame implements ActionListener{
         }
         else if(e.getSource() == this.view.btnRemove){
             System.out.println("Oprimió REMOVE");
+            DefaultListModel listModel = (DefaultListModel) this.view.jList.getModel();
+            try{
+                ListItem selectedItem = (ListItem) listModel.getElementAt(this.view.jList.getSelectedIndex());
+                String selectedValue = selectedItem.toString();
+
+                if(selectedValue.contains(".")){ //Si es un archivo, es decir, si tiene un punto
+                    int i = -1;
+                    int iterator = -1;
+                    for(File f: this.shell.getFiles()){
+                        i++;
+                        if((f.getName() + "." + f.getExtention()).equals(selectedValue) && f.getLocation().equals(this.shell.getCurrentDir())){
+                            i = iterator;
+                        }
+                    }
+                    if(i >= 0) this.shell.getFiles().remove(i);
+                    
+                } else {
+                    int i = -1;
+                    int iterator = -1;
+                    for(Directory d: this.shell.getDirectories()){
+                        i++;
+                        if(d.getName().equals(selectedValue) && d.getLocation().equals(this.shell.getCurrentDir())){
+                            i = iterator;
+                        }
+                    }
+                    if(i >= 0) this.shell.getDirectories().remove(i);
+                }
+                this.loadItemList();
+            } catch(Exception exc){
+                JOptionPane.showMessageDialog(view, "Seleccione un elemento de la lista para realizar esta operación");
+            }
         }
         else if(e.getSource() == this.view.btnFind){
             System.out.println("Buscar: " + view.txtFind.getText());
@@ -171,6 +205,9 @@ public class MainWindowController extends JFrame implements ActionListener{
         this.files = this.shell.getFiles();
         this.directories = this.shell.getDirectories();
         
+        DefaultMutableTreeNode root = new DefaultMutableTreeNode("Root");
+        DefaultTreeModel model = new DefaultTreeModel(root);
+        
         DefaultListModel listModel = (DefaultListModel)this.view.jList.getModel();
         listModel.removeAllElements();
         ArrayList<Directory> dirs = this.shell.getDirectoriesFromLocation(this.shell.getCurrentDir());
@@ -185,7 +222,14 @@ public class MainWindowController extends JFrame implements ActionListener{
             
         }
         
+        for(Directory d: this.shell.getDirectories()){
+            
+        }
+        
         this.view.jList.setModel(listModel);
+        this.view.jTree1.setModel(model);
+        
+        
         
     }
     

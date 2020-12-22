@@ -60,6 +60,11 @@ public class Directory {
         this.location = location;
     }
     
+    public void clearContents(){
+        Files.clear();
+        Directories.clear();
+    }
+    
     @Override
     public String toString(){
         String str = "";
