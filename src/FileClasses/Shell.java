@@ -245,6 +245,17 @@ public class Shell {
         currentDirr.printTree("-");
     }
     
+    public String getTreeText(){
+        String res = "";
+        Directory current = new Directory();
+        for(Directory d: Directories){
+            if(d.getLocation().equals(this.currentDir)){
+                current = d;
+            }
+        }
+        res += current.getTreeText("-");
+        return res;
+    }
     
     public Directory getDir(String path){
         for(Directory d : Directories){

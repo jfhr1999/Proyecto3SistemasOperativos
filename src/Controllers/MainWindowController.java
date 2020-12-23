@@ -58,9 +58,10 @@ public class MainWindowController extends JFrame implements ActionListener{
         this.view.btnMover.addActionListener(this);
         this.view.btnRemove.addActionListener(this);
         this.view.btnFind.addActionListener(this);
-        this.view.btnTREE.addActionListener(this);
+        //this.view.btnTREE.addActionListener(this);
         
         this.view.txtPath.setText(this.shell.getCurrentDir());
+        this.view.txtTree.setEditable(false);
         
         DefaultListModel listModel = new DefaultListModel();
         this.itemList = this.view.jList;
@@ -234,9 +235,9 @@ public class MainWindowController extends JFrame implements ActionListener{
             this.loadItemList();
         }
         
-        else if(e.getSource() == this.view.btnTREE){
+        /*else if(e.getSource() == this.view.btnTREE){
             this.shell.printTree();
-        }
+        }*/
         else{
             JOptionPane.showMessageDialog(view, "Ocurrió un error con la ventana");
         }
@@ -253,8 +254,8 @@ public class MainWindowController extends JFrame implements ActionListener{
         this.files = this.shell.getFiles();
         this.directories = this.shell.getDirectories();
         
-        DefaultMutableTreeNode root = new DefaultMutableTreeNode("Root");
-        DefaultTreeModel model = new DefaultTreeModel(root);
+        //DefaultMutableTreeNode root = new DefaultMutableTreeNode("Root");
+        //DefaultTreeModel model = new DefaultTreeModel(root);
         
         DefaultListModel listModel = (DefaultListModel)this.view.jList.getModel();
         listModel.removeAllElements();
@@ -271,14 +272,14 @@ public class MainWindowController extends JFrame implements ActionListener{
             
         }
         
-        for(Directory d: this.shell.getDirectories()){
+        //for(Directory d: this.shell.getDirectories()){
             
-        }
+        //}
         
         this.view.jList.setModel(listModel);
-        this.view.jTree1.setModel(model);
+        //this.view.jTree1.setModel(model);
         
-        
+        this.view.txtTree.setText(this.shell.getTreeText());
         
     }
     

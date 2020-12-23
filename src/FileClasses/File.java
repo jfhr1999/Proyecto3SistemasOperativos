@@ -93,6 +93,13 @@ public class File {
         System.out.print(tab + str);
     }
     
+    public String getTreeText(String tab){
+        String res = "";
+        res += tab;
+        res += Name + "." + Extention + "\n";
+        return res;
+    }
+    
     @Override
     public String toString(){
         String str = "";

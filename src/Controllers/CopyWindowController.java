@@ -49,7 +49,7 @@ public class CopyWindowController implements ActionListener {
             
             if(selection.equals("Real - Virtual")){
                 
-                if(sourcePath.contains(".")){
+                if(sourcePath.contains(".")){ //Si es un archivo
                     
                     boolean dirExists = false;
                     
@@ -59,7 +59,7 @@ public class CopyWindowController implements ActionListener {
                         }
                     }
                     
-                    if(dirExists){
+                    if(dirExists){ //Si el archivo existe
                         
                         String firstRoute = this.shell.getCurrentDir();
                         this.shell.setCurrentDir(targetPath);
@@ -86,13 +86,13 @@ public class CopyWindowController implements ActionListener {
                         }
                         this.mainController.updateWindow();
                         closeWindow();
-                        this.shell.setCurrentDir(firstRoute);
+                        this.shell.setCurrentDir(firstRoute); //Esto no va antes del close window??
                         
                     }else{
                         JOptionPane.showMessageDialog(view, "El path de origen no es válido");
                     }
                 
-                }else{
+                }else{ //Si es un directorio
                     
                     boolean dirExists = false;
                     
@@ -102,7 +102,7 @@ public class CopyWindowController implements ActionListener {
                         }
                     }
                     
-                    if(dirExists){
+                    if(dirExists){ //Si el directorio existe
                         
                         int p = sourcePath.lastIndexOf("\\");
                         String k = sourcePath.substring(p+1);
@@ -338,6 +338,7 @@ public class CopyWindowController implements ActionListener {
         this.view.dispose();
     }
     
+    //Agrega a una lista dada todos los java.io.File (sean files o directories) de un directorio dado
     public void listf(String directoryName, List<java.io.File> files) {
         java.io.File directory = new java.io.File(directoryName);
 

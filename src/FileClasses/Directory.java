@@ -115,6 +115,19 @@ public class Directory {
         
     }
     
+    public String getTreeText(String tab){
+        String res = tab + getName() + "\n";
+        for(Directory d: Directories){
+            res += d.getTreeText(tab + tab);
+        }
+        
+        for(File f: Files){
+            res += f.getTreeText(tab + tab);
+        }
+        
+        return res;
+    }
+    
     public void removeFileFromDir(String name, String extension){
         int i = 0;
         int j = 0;
