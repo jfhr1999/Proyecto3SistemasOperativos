@@ -219,7 +219,7 @@ public class Shell {
     }
     
     public boolean checkLocation(String desiredLocation){
-        printDir();
+        //printDir();
         for(Directory d : Directories){
             if(d.getLocation().equals(desiredLocation)){
                 return true;
@@ -228,10 +228,29 @@ public class Shell {
         return false;
     }
     
+    
+    public Directory getDir(String path){
+        for(Directory d : Directories){
+            if(d.getLocation().equals(path)){
+                return d;
+            }
+        }
+        return new Directory();
+    }
+    
     public void insertFile(File f){
         Files.add(f); //TEMPORAL
         for(Directory d : Directories){
             if(d.getLocation().equals(currentDir)){
+                d.insertFile(f);
+            }
+        }
+    }
+    
+    public void insertFileInDir(File f, String path){
+        Files.add(f);
+        for(Directory d: Directories){
+            if(d.getLocation().equals(path)){
                 d.insertFile(f);
             }
         }
@@ -377,6 +396,12 @@ public class Shell {
     public void printDir(){
         for(Directory d : Directories){
             System.out.println(d.getLocation());
+        }
+    }
+    
+    public void printFile(){
+        for(File f: Files){
+            System.out.println(f.getName() + "." +f.getExtention() + "      Location: " + f.getLocation());
         }
     }
     

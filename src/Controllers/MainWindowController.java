@@ -151,7 +151,7 @@ public class MainWindowController extends JFrame implements ActionListener{
                 String selectedValue = selectedItem.toString();
                 
                 MoveWindow moveWindow = new MoveWindow();
-                MoveWindowController moveWindowC = new MoveWindowController(moveWindow, this.shell, this);
+                MoveWindowController moveWindowC = new MoveWindowController(moveWindow, this.shell, this, selectedValue);
                 moveWindowC.view.setVisible(true);
             } catch(Exception exc){
                 JOptionPane.showMessageDialog(view, "Seleccione un elemento de la lista para realizar esta operación");

@@ -77,6 +77,19 @@ public class Directory {
         return str;
     }
     
+    public File getFile(String name, String extention){
+        for(File f: Files){
+            if(f.getName().equals(name) && f.getExtention().equals(extention)){
+                return f;
+            }
+        }
+        return new File();
+    }
+    
+    public void setFiles(ArrayList<File> files){
+        Files = files;
+    }
+    
     public void removeFileFromDir(String name, String extension){
         int i = 0;
         int j = 0;
