@@ -86,8 +86,21 @@ public class Directory {
         return new File();
     }
     
+    public Directory getDirectory(String name){
+        for(Directory d: Directories){
+            if(d.getName().equals(name)){
+                return d;
+            }
+        }
+        return new Directory();
+    }
+    
     public void setFiles(ArrayList<File> files){
         Files = files;
+    }
+    
+    public void setDirectories(ArrayList<Directory> dirs){
+        Directories = dirs;
     }
     
     public void removeFileFromDir(String name, String extension){

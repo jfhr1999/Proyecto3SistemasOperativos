@@ -44,6 +44,44 @@ public class RenameWindowController implements ActionListener{
             String fullName = this.view.txtName.getText();
             if(isDir){
                 //Hace lo del dir
+                Directory dir = this.shell.getDir(this.shell.getCurrentDir());
+                Directory targetDir = this.shell.getDir(targetPath);
+                
+                boolean dirExists = false;
+                for(Directory d: targetDir.getDirectories()){
+                    if(d.getName().equals(fullName)){
+                        dirExists = true;
+                    }
+                }
+                
+                if(dirExists){
+                    JOptionPane.showMessageDialog(view, "Este nombre ya existe, intente con otro.");
+                } else{
+                    //Se hace el rename
+                    Directory varDir = dir.getDirectory(oldFullName);
+                    
+                    varDir.setName(fullName);
+                    
+                    ArrayList<Directory> dirs = targetDir.getDirectories();
+                    
+                    dirs.add(varDir);
+                    targetDir.setDirectories(dirs);
+                    
+                    dir.removeDirFromDir(fullName);
+                    
+                    for(Directory d: this.shell.getDirectories()){
+                        if(d.getName().equals(fullName) && d.getLocation().equals(this.shell.getCurrentDir() + "\\" + oldFullName)){
+                            d.setName(fullName);
+                            d.setLocation(targetDir.getLocation() + "\\" + fullName);
+                        }
+                    }
+                    
+                    this.moveController.mainController.updateWindow();
+                    
+                    closeWindow();
+                    
+                }
+                
             } else{
 
                 Directory dir = this.shell.getDir(this.shell.getCurrentDir());

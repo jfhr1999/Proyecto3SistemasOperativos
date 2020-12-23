@@ -93,7 +93,41 @@ public class MoveWindowController implements ActionListener {
                         this.mainController.updateWindow();
                     }
                 } else{
-                    
+                    boolean dirExists = false;
+                    for(Directory d: dir.getDirectories()){
+                        if(d.getName().equals(selectedValue)){
+                            dirExists = true;
+                            if(JOptionPane.showConfirmDialog(null, "Ya existe un directorio con este nombre en el destino, ¿desea renombrarlo?", "Confirmar", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION){
+                                RenameWindow renameWindow= new RenameWindow();
+                                RenameWindowController renameWindowC = new RenameWindowController(renameWindow, this.shell, this, true, selectedValue, fullPath);
+                                renameWindowC.view.setVisible(true);
+                                
+                            }
+                        }
+                    }
+                    if(!dirExists){
+                        Directory oldDir = this.shell.getDir(this.shell.getCurrentDir());
+                        
+                        Directory varDir = oldDir.getDirectory(selectedValue);
+                        
+                        Directory targetDir = this.shell.getDir(fullPath);
+                        
+                        ArrayList<Directory> dirs = targetDir.getDirectories();
+                        
+                        dirs.add(varDir);
+                        targetDir.setDirectories(dirs);
+                        
+                        oldDir.removeDirFromDir(selectedValue);
+                        
+                        for(Directory d: this.shell.getDirectories()){
+                            if(d.getName().equals(selectedValue)){
+                                d.setLocation(fullPath + "\\" + selectedValue);
+                            }
+                        }
+                        
+                        this.mainController.updateWindow();
+                        
+                    }
                     
                 }
                 
