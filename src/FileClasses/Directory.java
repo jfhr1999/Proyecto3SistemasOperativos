@@ -1,7 +1,7 @@
 package FileClasses;
 
 import java.util.ArrayList;
-
+import java.io.FileWriter;
 
 public class Directory {
     
@@ -126,5 +126,66 @@ public class Directory {
         }
         Directories.remove(j);
     }
+    
+    
+    public void writeAll(String path){
+        
+        java.io.File file = new java.io.File(path);
+        file.mkdir();
+        
+        for(FileClasses.File f: Files){
+            System.out.println("Entrando a files de " + path);
+            try{
+                FileWriter fw = new FileWriter(path + "\\" + f.getName() + "." + f.getExtention());
+
+                fw.write(f.getContent());
+                fw.close();
+
+            } catch(Exception exc){
+                System.out.println("Problema en el writeAll: " + exc);
+            }
+        }
+        
+        for(Directory d: Directories){
+            System.out.println("Entrando a directorios de " + path);
+            if(!d.getDirectories().isEmpty()){
+                d.writeAll(path + "\\" + d.getName());
+            } else{
+                java.io.File file2 = new java.io.File(path + "\\" + d.getName());
+                file2.mkdir();
+            }
+        }
+    }
+    
+    /*
+    public void writeAll(Directory dir, String path){
+        ArrayList<Directory> dirs = dir.getDirectories();
+        for(Directory d: dirs){
+            if(!d.Directories.isEmpty()){
+                d.writeAll(d, path + "\\" + d.getName());
+            } else{
+                
+                //Create directory
+                java.io.File file = new java.io.File(path);
+                file.mkdir();
+                
+                //Create all files
+                for(FileClasses.File f: d.Files){
+                    try{
+                        FileWriter fw = new FileWriter(path + "\\" + f.getName() + "." + f.getExtention());
+
+                        fw.write(f.getContent());
+                        fw.close();
+
+                    } catch(Exception exc){
+                        System.out.println("Problema en el writeAll: " + exc);
+                    }
+                
+                }
+            }
+        }
+    }
+    */
+    
     
 }

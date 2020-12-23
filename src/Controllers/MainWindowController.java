@@ -7,6 +7,7 @@ package Controllers;
 import FileClasses.Directory;
 import FileClasses.File;
 import FileClasses.Shell;
+import View.CopyWindow;
 import View.DirectoryWindow;
 import View.FileWindow;
 import View.IconLabelListRenderer;
@@ -143,6 +144,9 @@ public class MainWindowController extends JFrame implements ActionListener{
         }
         else if(e.getSource() == this.view.btnCopy){
             System.out.println("Oprimió COPY");
+            CopyWindow copyWindow = new CopyWindow();
+            CopyWindowController copyWindowC = new CopyWindowController(copyWindow, this.shell, this);
+            copyWindowC.view.setVisible(true);
         }
         else if(e.getSource() == this.view.btnMover){
             System.out.println("Oprimió MOVER");

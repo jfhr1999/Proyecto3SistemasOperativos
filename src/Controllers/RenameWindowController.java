@@ -119,11 +119,11 @@ public class RenameWindowController implements ActionListener{
                     
                     for(File f: this.shell.getFiles()){ //REvisar si cuando modifico aldo con getFiles, cambia también en el shell
                         if(f.getName().equals(fullName) && f.getExtention().equals(oldExtention) && f.getLocation().equals(this.shell.getCurrentDir())){
-                            System.out.println("HOLA");
+                            //System.out.println("HOLA");
                             f.setName(fullName);
                             f.setModificationDate(new Date());
                             f.setLocation(targetDir.getLocation());
-                            this.shell.printFile();
+                            //this.shell.printFile();
                         }
                     }
                     
