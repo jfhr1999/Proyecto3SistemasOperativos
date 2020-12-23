@@ -88,7 +88,9 @@ public class File {
     }
     
     public void printTree(String tab){
-        System.out.print(tab + toString());
+        String str = "";
+        str += Name +"."+Extention + "\n";
+        System.out.print(tab + str);
     }
     
     @Override
