@@ -153,26 +153,9 @@ public class Directory {
             } else{
                 java.io.File file2 = new java.io.File(path + "\\" + d.getName());
                 file2.mkdir();
-            }
-        }
-    }
-    
-    /*
-    public void writeAll(Directory dir, String path){
-        ArrayList<Directory> dirs = dir.getDirectories();
-        for(Directory d: dirs){
-            if(!d.Directories.isEmpty()){
-                d.writeAll(d, path + "\\" + d.getName());
-            } else{
-                
-                //Create directory
-                java.io.File file = new java.io.File(path);
-                file.mkdir();
-                
-                //Create all files
-                for(FileClasses.File f: d.Files){
+                for(FileClasses.File f: d.getFiles()){
                     try{
-                        FileWriter fw = new FileWriter(path + "\\" + f.getName() + "." + f.getExtention());
+                        FileWriter fw = new FileWriter(path + "\\" + d.getName() + "\\" + f.getName() + "." + f.getExtention());
 
                         fw.write(f.getContent());
                         fw.close();
@@ -180,12 +163,27 @@ public class Directory {
                     } catch(Exception exc){
                         System.out.println("Problema en el writeAll: " + exc);
                     }
-                
                 }
             }
         }
     }
-    */
     
-    
+    public void changeAllPaths(String path){
+        setLocation(path);
+        
+        for(FileClasses.File f : Files){
+            f.setLocation(path);
+        }
+        
+        for(Directory d : Directories){
+            if(!d.getDirectories().isEmpty()){
+                d.changeAllPaths(path + "\\" + d.getName());
+            } else{
+                d.setLocation(path  + "\\" + d.getName());
+                for(FileClasses.File f : d.getFiles()){
+                    f.setLocation(path + "\\" + d.getName());
+                }
+            }
+        }
+    }
 }

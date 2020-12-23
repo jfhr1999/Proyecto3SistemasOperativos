@@ -9,6 +9,7 @@ import FileClasses.Directory;
 import FileClasses.File;
 import FileClasses.Shell;
 import View.CopyWindow;
+import View.RenameWindow;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.FileNotFoundException;
@@ -262,7 +263,69 @@ public class CopyWindowController implements ActionListener {
                     
                 }
             } else{ //Virtual - Virtual
-            
+                Directory dir = this.shell.getDir(targetPath);
+                
+                boolean isFile = sourcePath.contains(".");
+                
+                if(isFile){
+                    int p = sourcePath.lastIndexOf("\\");
+                    String k = sourcePath.substring(p+1);
+                    String a = sourcePath.substring(0,p);
+                    String[] str = k.split("\\.");
+                    String name = str[0];
+                    String extention = str[1];
+                     
+                    Directory sourceDir = this.shell.getDir(a);
+                    
+                    File copy = sourceDir.getFile(name, extention);
+                    File varFile = new File(copy.getName(), copy.getExtention());
+                    
+                    varFile.setModificationDate(new Date());
+                    varFile.setLocation(targetPath);
+                    varFile.setCreationDate(new Date());
+                    varFile.setContent(copy.getContent());
+                    
+                    ArrayList<File> files = dir.getFiles();
+                    files.add(varFile);
+                    dir.setFiles(files);
+                    
+                    files = this.shell.getFiles();
+                    files.add(varFile);
+                    this.shell.setFiles(files);
+                    this.mainController.updateWindow();
+                    closeWindow();
+                }else{
+                    
+                    int p = sourcePath.lastIndexOf("\\");
+                    String k = sourcePath.substring(p+1);
+                    String a = sourcePath.substring(0,p);
+                    
+                    Directory sourceDir = this.shell.getDir(a);
+                        
+                    Directory copy = sourceDir.getDirectory(k);
+                    Directory varDir = new Directory(copy.getName(), targetPath + "\\" + k);
+
+                    ArrayList<File> files = new ArrayList();
+                    ArrayList<Directory> dirs2 = new ArrayList();
+                    copyLists(files, dirs2, copy);
+
+                    varDir.changeAllPaths(targetPath + "\\" + k);
+                    System.out.println("K: " + k);
+
+                    Directory targetDir = this.shell.getDir(targetPath);
+
+                    ArrayList<Directory> dirs = targetDir.getDirectories();
+
+                    dirs.add(varDir);
+                    targetDir.setDirectories(dirs);
+                    
+                    dirs = this.shell.getDirectories();
+                    dirs.add(varDir);
+                    this.shell.setDirectories(dirs);
+                    
+                    this.mainController.updateWindow();
+                    closeWindow();
+                }
             }
             
         } else{
@@ -289,6 +352,23 @@ public class CopyWindowController implements ActionListener {
                     listf(file.getAbsolutePath(), files);
                 }
             }
+        }
+    }
+    
+    public void copyLists(ArrayList<File> files, ArrayList<Directory> dirs, Directory dir){
+        
+        
+        for(File f : dir.getFiles()){
+            File file = new File(f.getName(), f.getExtention(), f.getContent(), f.getLocation());
+            files.add(file);
+        }
+        
+        for(Directory d : dir.getDirectories()){
+            Directory dir2 = new Directory(d.getName(), d.getLocation());
+            ArrayList<File> myFiles = new ArrayList();
+            ArrayList<Directory> myDirs = new ArrayList();
+            copyLists(myFiles, myDirs, d);
+            dirs.add(dir2);
         }
     }
 }

@@ -14,6 +14,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 
@@ -68,10 +70,14 @@ public class MoveWindowController implements ActionListener {
                         String oldExtention = oldData[1];
                         
                         Directory oldDir = this.shell.getDir(this.shell.getCurrentDir());
+                        Date modDate = new Date();
+                        File copy = oldDir.getFile(oldName, oldExtention);
+                        File varFile = new File(copy.getName(), copy.getExtention());
+
                         
-                        File varFile = oldDir.getFile(oldName, oldExtention);
-                    
-                        varFile.setModificationDate(new Date());
+                        varFile.setModificationDate(modDate);
+                        varFile.setLocation(fullPath);
+                        varFile.setContent(copy.getContent());
 
                         Directory targetDir = this.shell.getDir(fullPath);
                         
@@ -85,7 +91,7 @@ public class MoveWindowController implements ActionListener {
 
                         for(File f: this.shell.getFiles()){
                             if(f.getName().equals(oldName) && f.getExtention().equals(oldExtention) && f.getLocation().equals(this.shell.getCurrentDir())){
-                                f.setModificationDate(new Date());
+                                f.setModificationDate(modDate);
                                 f.setLocation(fullPath);
                             }
                         }
@@ -108,7 +114,13 @@ public class MoveWindowController implements ActionListener {
                     if(!dirExists){
                         Directory oldDir = this.shell.getDir(this.shell.getCurrentDir());
                         
-                        Directory varDir = oldDir.getDirectory(selectedValue);
+                        Directory copy = oldDir.getDirectory(selectedValue);
+                        Directory varDir = new Directory(copy.getName(), fullPath + "\\" + selectedValue);
+                        
+                        varDir.setDirectories(copy.getDirectories());
+                        varDir.setFiles(copy.getFiles());
+                        
+                        varDir.changeAllPaths(fullPath + "\\" + selectedValue);
                         
                         Directory targetDir = this.shell.getDir(fullPath);
                         
@@ -122,6 +134,7 @@ public class MoveWindowController implements ActionListener {
                         for(Directory d: this.shell.getDirectories()){
                             if(d.getName().equals(selectedValue)){
                                 d.setLocation(fullPath + "\\" + selectedValue);
+                                d.changeAllPaths(fullPath + "\\" + selectedValue);
                             }
                         }
                         
