@@ -11,6 +11,7 @@ import View.DirectoryWindow;
 import View.FileWindow;
 import View.IconLabelListRenderer;
 import View.ListItem;
+import View.ListWindow;
 import View.MainWindow;
 import View.MoveWindow;
 import java.awt.Dimension;
@@ -221,14 +222,11 @@ public class MainWindowController extends JFrame implements ActionListener{
             }
         }
         else if(e.getSource() == this.view.btnFind){
-            System.out.println("Buscar: " + view.txtFind.getText());
-            if(this.view.txtFind.getText().equals("")){ //No hay nada que buscar, resetea, hace un listarDir
-                this.loadItemList();
-            } 
-            //Meter aqui if else para las opciones de busqueda
-            else{
-                JOptionPane.showMessageDialog(view, "Búsqueda para '" + this.view.txtFind.getText() + "' no habilitada aún");
-            }
+            
+            ListWindow listWindow = new ListWindow();
+            ListWindowController listWindowC = new ListWindowController(listWindow, this.shell, this, view.txtFind.getText());
+            listWindowC.view.setVisible(true);
+            this.loadItemList();
         }
         else{
             JOptionPane.showMessageDialog(view, "Ocurrió un error con la ventana");

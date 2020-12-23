@@ -179,14 +179,14 @@ public class Shell {
                 if(answer.equals("d")){
                     System.out.print("\nDigite el nombre del directorio que desea buscar: ");
                     String name = sc.nextLine();
-                    findDir(name);
+                    //findDir(name);
                 }else{
                     System.out.print("\nDigite el nombre del archivo que desea buscar: ");
                     str = sc.nextLine();
                     String[] data = str.split("\\.");
                     String name = data[0];
                     String extension = "." + data[1];
-                    findFile(name, extension);
+                    //findFile(name, extension);
                 }
             }
             
@@ -345,28 +345,40 @@ public class Shell {
         }
     }
     
-    public void findDir(String name){
+    public ArrayList<String> findDirs(String name){
+        ArrayList<String> res = new ArrayList();
+        boolean anyDir = name.equals("*");
         for(Directory d : Directories){
-            if(d.getName().equals(name)){
-                System.out.println(d.getLocation());
+            if(d.getName().equals(name) || anyDir){
+                res.add(d.getLocation());
+                //System.out.println(d.getLocation());
             }
         }
+        return res;
     }
     
-    public void findFile(String name, String extension){
+    public ArrayList<String> findFiles(String name, String extension){
+        
+        ArrayList<String> res = new ArrayList();
+        
         boolean anyName = name.equals("*");
         boolean anyExtension = extension.equals("*");
         for(File f : Files){
             if(anyName && f.getExtention().equals(extension)){
-                System.out.println(f.getLocation() + "\\" + f.getName() + "." + f.getExtention());
+                res.add(f.getLocation() + "\\" + f.getName() + "." + f.getExtention());
+                //System.out.println(f.getLocation() + "\\" + f.getName() + "." + f.getExtention());
             } else if(anyExtension && f.getName().equals(name)){
-                System.out.println(f.getLocation() + "\\" + f.getName() + "." + f.getExtention());
+                res.add(f.getLocation() + "\\" + f.getName() + "." + f.getExtention());
+                //System.out.println(f.getLocation() + "\\" + f.getName() + "." + f.getExtention());
             } else if(f.getName().equals(name) && f.getExtention().equals(extension)){
-                 System.out.println(f.getLocation() + "\\" + f.getName() + "." + f.getExtention());
+                res.add(f.getLocation() + "\\" + f.getName() + "." + f.getExtention());
+                 //System.out.println(f.getLocation() + "\\" + f.getName() + "." + f.getExtention());
             } else if(anyName && anyExtension){
-                System.out.println(f.getLocation() + "\\" + f.getName() + "." + f.getExtention());
+                res.add(f.getLocation() + "\\" + f.getName() + "." + f.getExtention());
+                //System.out.println(f.getLocation() + "\\" + f.getName() + "." + f.getExtention());
             }
         }
+        return res;
     }
     
     public String getCurrentDir(){
