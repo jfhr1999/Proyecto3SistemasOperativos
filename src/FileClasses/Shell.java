@@ -191,7 +191,13 @@ public class Shell {
             }
             
             else if (str.equals("TREE")){
-                
+                Directory currentDirr = new Directory();
+                for(Directory d : Directories){
+                    if(d.getLocation().equals(this.currentDir)){
+                        currentDirr = d;
+                    }
+                }
+                currentDirr.printTree("-");
             }
             
             else{
@@ -226,6 +232,17 @@ public class Shell {
             }
         }
         return false;
+    }
+    
+    public void printTree(){
+        System.out.print("\n");
+        Directory currentDirr = new Directory();
+        for(Directory d : Directories){
+            if(d.getLocation().equals(this.currentDir)){
+                currentDirr = d;
+            }
+        }
+        currentDirr.printTree("-");
     }
     
     

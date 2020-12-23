@@ -103,6 +103,18 @@ public class Directory {
         Directories = dirs;
     }
     
+    public void printTree(String tab){
+        System.out.print(tab + getName()+"\n");
+        for(Directory d: Directories){
+            d.printTree(tab + tab);
+        }
+        
+        for(File f: Files){
+            f.printTree(tab + tab);
+        }
+        
+    }
+    
     public void removeFileFromDir(String name, String extension){
         int i = 0;
         int j = 0;

@@ -58,6 +58,7 @@ public class MainWindowController extends JFrame implements ActionListener{
         this.view.btnMover.addActionListener(this);
         this.view.btnRemove.addActionListener(this);
         this.view.btnFind.addActionListener(this);
+        this.view.btnTREE.addActionListener(this);
         
         this.view.txtPath.setText(this.shell.getCurrentDir());
         
@@ -231,6 +232,10 @@ public class MainWindowController extends JFrame implements ActionListener{
             ListWindowController listWindowC = new ListWindowController(listWindow, this.shell, this, view.txtFind.getText());
             listWindowC.view.setVisible(true);
             this.loadItemList();
+        }
+        
+        else if(e.getSource() == this.view.btnTREE){
+            this.shell.printTree();
         }
         else{
             JOptionPane.showMessageDialog(view, "Ocurrió un error con la ventana");
